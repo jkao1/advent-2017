@@ -13,8 +13,7 @@ public class Driver {
             }
             sheet.add(intArray);
         }
-        System.out.println(arraysToString(sheet));
-        System.out.println(Checksum.checksum(sheet));
+        System.out.println(Checksum.checksumEvenly(sheet));
     }
 
     private static String arraysToString(ArrayList<int[]> ary) {

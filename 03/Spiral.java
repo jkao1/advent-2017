@@ -29,19 +29,5 @@ public class Spiral {
 
     public static int findFirstGreatest(int x)
     {
-        ArrayList<Integer> spiral = new ArrayList<>();
-        spira.add(1);
-        int i = 0;
-        while (spiral.get(i) < x) {
-            spiral.add(spiral.get())
-        }
-    }
-
-    private static int getIndexOr(ArrayList<Integer> ary, int i, int defaultValue) {
-        try {
-            return ary.get(i);
-        } catch (IndexOutOfBoundsException e) {
-            return defaultValue;
-        }
     }
 }

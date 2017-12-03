@@ -1,2 +1,3 @@
 .advent # account code
 *.class
+.#*

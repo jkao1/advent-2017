@@ -1,5 +1,7 @@
+import java.util.ArrayList;
+
 public class Checksum {
-    public static checksum(ArrayList<int[]> sheet)
+    public static int checksum(ArrayList<int[]> sheet)
     {
         int output = 0;
         for (int[] ary : sheet) {

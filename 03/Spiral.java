@@ -29,19 +29,40 @@ public class Spiral {
 
     public static int findFirstGreatest(int x)
     {
-        ArrayList<Integer> spiral = new ArrayList<>();
-        spira.add(1);
+        Node head = new Node(1);
+        Node second = new Node(1);
+        head.right = second;
+        second.left = head;
+        tail = second;
+        int direction = 0;
         int i = 0;
-        while (spiral.get(i) < x) {
-            spiral.add(spiral.get())
+        while (tail.value < x) {
+            Node next = new Node();
+            if (direction == 0) {
+                next.down = tail;
+                tail.up = next;
+                next.downLeft = tail.left;
+                tail.left.upRight = next;
+            }
+            i++;
+            tail = next;
+            next.computeValue();
         }
     }
 
-    private static int getIndexOr(ArrayList<Integer> ary, int i, int defaultValue) {
-        try {
-            return ary.get(i);
-        } catch (IndexOutOfBoundsException e) {
-            return defaultValue;
+    private class Node {
+        public Node right, upRight, up, upLeft, left, downLeft, down, downRight;
+        public int value;
+        public Node() {}
+        public Node(int value) {
+            this.value = value;
+        }
+        public void computeValue() {
+            int tempVal = 0;
+            for (Node n : new Node[]{right, upRight, up, upLeft, left, downLeft, down, downRight}) {
+                tempVal = n == null ? 0 : n.value;
+            }
+            value = tempVal;
         }
     }
 }

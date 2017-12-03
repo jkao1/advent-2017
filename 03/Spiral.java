@@ -1,5 +1,4 @@
 public class Spiral {
-
     public static int findDistance(int x)
     {
         double sqrt = Math.sqrt(x);
@@ -8,6 +7,9 @@ public class Spiral {
             level++;
         }
         level /= 2;
+        if (level < 2) {
+            return level;
+        }
         if (Math.floor(sqrt) == Math.ceil(sqrt) && Math.floor(sqrt) % 2 == 1) {
             return (level - 1) * 2;
         }
@@ -16,19 +18,12 @@ public class Spiral {
             return level * 2;
         }
         int sideNum = 0;
-        int dTracker = dTolevelOrigin;
-        while (dTracker > 0) {
-            dToLevelOrigin -= n;
+        int dTracker = dToLevelOrigin;
+        while (dTracker - 2 * level >= 0) {
+            dTracker -= 2 * level;
             sideNum++;
         }
-        System.out.println("" + x + ", " + level + ": " +  dToLevelOrigin);
-        return 0;
+        int sideMid = (int) (Math.pow(2 * level - 1, 2)) + level + 2 * level * sideNum;
+        return level + Math.abs(sideMid - x);
     }
-
-    public static void main(String[] args) {
-        for (int i = 0; i < 50; i++) {
-            findDistance(i);
-        }
-    }
-
 }

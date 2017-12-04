@@ -26,8 +26,4 @@ public class Spiral {
         int sideMid = (int) (Math.pow(2 * level - 1, 2)) + level + 2 * level * sideNum;
         return level + Math.abs(sideMid - x);
     }
-
-    public static int findFirstGreatest(int x)
-    {
-    }
 }

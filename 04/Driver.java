@@ -8,6 +8,6 @@ public class Driver {
         while (in.hasNextLine()) {
             passphrases.add(in.nextLine());
         }
-        System.out.println(Passphrase.findValidPassphrases(passphrases));
+        System.out.println(Passphrase.findNonAnagrams(passphrases));
     }
 }

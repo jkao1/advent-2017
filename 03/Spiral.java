@@ -37,5 +37,9 @@ public class Spiral {
     x++;
     spiral[x][y] = 1;
     y++;
+    
+    while (spiral[x][y] < limit) {
+    
+    }
   }
 }

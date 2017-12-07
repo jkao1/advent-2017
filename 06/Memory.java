@@ -4,7 +4,6 @@ public class Memory {
   public static int redistribute(ArrayList<Integer> bank) {
     Hashtable hashtable = new Hashtable();
     while (!hashtable.containsKey(bank.toString())) {
-      System.out.println(bank);
       hashtable.put(bank.toString(), "placeholder");
       int maxIndex = getMaxIndex(bank);
 
@@ -12,7 +11,6 @@ public class Memory {
       int chunk = toRedistribute / bank.size();
       int leftover = toRedistribute % bank.size();
       int onesToGive = leftover;
-      System.out.println("redistributing max of " + bank.get(maxIndex) + " to chunks of " + chunk + " and leftover of " + leftover);
       bank.set(maxIndex, 0);
       for (int i = 0; i < bank.size(); i++) {
 	if (i > maxIndex && i <= maxIndex + leftover ||

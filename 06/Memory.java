@@ -16,7 +16,7 @@ public class Memory {
       bank.set(maxIndex, 0);
       for (int i = 0; i < bank.size(); i++) {
 	if (i > maxIndex && i <= maxIndex + leftover ||
-	    maxIndex + leftover > bank.size() && i <= (maxIndex + leftover) % bank.size()) {
+	    maxIndex + leftover > bank.size() - 1 && i <= (maxIndex + leftover) % bank.size()) {
 	  if (onesToGive > 0) {
 	    bank.set(i, bank.get(i) + 1 + chunk);
 	    onesToGive--;

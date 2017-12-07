@@ -12,16 +12,17 @@ public class Memory {
       int chunk = toRedistribute / (bank.size() - 1);
       int leftover = toRedistribute % (bank.size() - 1);
       System.out.println("redistributing max of " + bank.get(maxIndex) + " to chunks of " + chunk + " and leftover of " + leftover);
+	
       for (int i = 0; i < bank.size(); i++) {
-	if (leftover == 0 && chunk == 0) {
-	  break;
-	}
-	if (i == maxIndex) {
-	  bank.set(i, bank.get(i) - toRedistribute);
+	if (chunk == 0) {
+	  if (i == maxIndex) {
+	    bank.set(i, 0);
+	  } else if (i > maxIndex && i <= maxIndex + leftover|| i < maxIndex && maxIndex + leftover > bank.size() && i <= (maxIndex + leftover) % bank.size()) {
+	    bank.set(i, bank.get(i) + 1);
+	  }
 	} else {
-	  if (leftover > 0) {
-	    bank.set(i, bank.get(i) + chunk + 1);
-	    leftover--;
+	  if (i == maxIndex) {
+	    bank.set(i, leftover);
 	  } else {
 	    bank.set(i, bank.get(i) + chunk);
 	  }

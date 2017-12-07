@@ -17,16 +17,34 @@ public class Circus {
   public int balanceWeights() {
     Program head = programs.get(findBottomProgram());
     accumulateWeights(head);
-    return findUnbalance(head);
+    return balanceWeights(head);
+  }
+
+  private int balanceWeights(Program program, int supposedWeight) {
+    if (program.sumWeights() != program.children.get(0) * program.children.size()) {
+      return supposedWeight - findImbalance(program);
+    }
+    return balanceWeights(
+      
+    
+    return findImbalance(head);
   }
 
   private int findImbalance(Program program) {
-    int imbalance = findForeignWeight(program.children);
+    int imbalance = findForeignWeight(programsToWeights(program.children));
     return 0;
   }
 
+  private ArrayList<Integer> programsToWeights(ArrayList<Program> array) {
+    ArrayList<Integer> weights = new ArrayList<>();
+    for (Program p : array) {
+      weights.add(p.weight);
+    }
+    return weights;
+  }
+
   public int findForeignWeight(ArrayList<Integer> array) {
-    double average = sumWeights(array) * 1.0 / array.size();
+    double average = sum(array) * 1.0 / array.size();
     int assumedCommon = array.get(0);
     double assumedDist = Math.abs(average - assumedCommon);
     for (int i = 1; i < array.size(); i++) {
@@ -39,30 +57,12 @@ public class Circus {
     return -1;
   }
 
-  private int sumWeights(ArrayList<Program> array) {
+  private int sum(ArrayList<Integer> array) {
     int sum = 0;
-    for (Program p : array) {
-      sum += p.weight;
+    for (int i : array) {
+      sum += i;
     }
     return sum;
-  }
-
-  private int findUnbalance(Program program, int supposedWeight) {
-    if (program.children.size() == 0) {
-      return 0;
-    } else if (program.children.size() == 1) {
-      return findUnbalance(program.children.get(0));
-    }
-    if (program.sumWeights() != program.children.get(0) * program.children.size()) {
-      if (program.children.size() == 2) {
-	
-      }
-      int imbalance = program.children.get(0);
-      if
-    }
-    for (Program c : program.children) {
-      return findUnbalance(c);
-    }
   }
 
   private int accumulateWeights(Program program) {

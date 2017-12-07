@@ -16,7 +16,6 @@ public class Circus {
   
   public String findBottomProgram() {
     Program traverser = programs.values().iterator().next();
-    System.out.println(programs);
     while (traverser.parent != null) {			  
       traverser = traverser.parent;
     }
@@ -56,9 +55,16 @@ public class Circus {
     for (String program : linkedPrograms) {
       Scanner scan = new Scanner(program);
       String name = scan.next();
-      Program p = programs.get(name);
+      int weight = getWeight(program);
+      Program p;
+      if (!programs.containsKey(name)) {
+	p = new Program(name, weight);
+	programs.put(name, p);
+      } else {
+	p = programs.get(name);
+      }
       if (p.weight == -1) {
-	p.weight = getWeight(program);
+	p.weight = weight;
       }
       scan.next(); // for "(weight)"
       scan.next(); // for "->"
@@ -68,37 +74,36 @@ public class Circus {
 	  cName = cName.substring(0, cName.length() - 1);
 	}
 	if (!programs.containsKey(cName)) {
-	  Program p = new Program(cName);
-	  programs.put(p.name, p);
+	  Program middleman = new Program(cName);
+	  programs.put(middleman.name, middleman);
 	}
 	Program child = (Program) (programs.get(cName));
 	child.parent = p;
       }
     }
   }
-}
 
-private class Program {
-  public Program parent;
-  public String name;
-  public int weight;
+  private class Program {
+    public Program parent;
+    public String name;
+    public int weight;
 
-  public Program(String name) {
-    this.name = name;
-    weight = -1;
-  }
+    public Program(String name) {
+      this.name = name;
+      weight = -1;
+    }
 
-  public Program(String name, int weight) {      
-    this.name = name;
-    this.weight = weight;
-  }
+    public Program(String name, int weight) {      
+      this.name = name;
+      this.weight = weight;
+    }
 
-  public String toString() {
-    if (parent != null) {
-      return name + " (parent: " + parent.name + ")";
-    } else {
-      return name;
+    public String toString() {
+      if (parent != null) {
+	return name + " (parent: " + parent.name + ")";
+      } else {
+	return name;
+      }
     }
   }
-}
 }

@@ -52,6 +52,9 @@ public class Circus {
   }
 	
   private void hashLinkedPrograms(ArrayList<String> linkedPrograms) {
+    if (linkedPrograms.size() == 0) {
+      return;
+    }
     // format of program string: ozfsktz (56) -> xzwjii, uhxjy
     ArrayList<String> middlemen = new ArrayList<>();
     for (String program : linkedPrograms) {
@@ -70,13 +73,11 @@ public class Circus {
 	  child.parent = p;
 	} else {
 	  System.out.println(cName);
-	  middlemen.add(cName);
+	  middlemen.add(program);
 	}
       }
     }
-    while (middlemen.size() > 0) {
-      
-    }
+    hashLinkedPrograms(middlemen);
   }
 
   private class Program {

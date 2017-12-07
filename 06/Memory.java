@@ -8,18 +8,20 @@ public class Memory {
       hashtable.put(bank.toString(), "placeholder");
       int maxIndex = getMaxIndex(bank);
 
-      int toRedistribute = bank.get(maxIndex) % (bank.size() - 1);
+      int toRedistribute = bank.get(maxIndex);
       int chunk = toRedistribute / (bank.size() - 1);
+      int leftover = toRedistribute % (bank.size() - 1);
+      System.out.println("redistributing max of " + bank.get(maxIndex) + " to chunks of " + chunk + " and leftover of " + leftover);
       for (int i = 0; i < bank.size(); i++) {
-	if (toRedistribute == 0 && chunk == 0) {
+	if (leftover == 0 && chunk == 0) {
 	  break;
 	}
 	if (i == maxIndex) {
 	  bank.set(i, bank.get(i) - toRedistribute);
 	} else {
-	  if (toRedistribute > 0) {
+	  if (leftover > 0) {
 	    bank.set(i, bank.get(i) + chunk + 1);
-	    toRedistribute--;
+	    leftover--;
 	  } else {
 	    bank.set(i, bank.get(i) + chunk);
 	  }

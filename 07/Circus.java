@@ -16,7 +16,9 @@ public class Circus {
 
   public int balanceWeights() {
     Program head = programs.get(findBottomProgram());
-    accumulateWeights(program);
+    accumulateWeights(head);
+    System.out.println(programs);
+    return 0;
   }
 
   private int accumulateWeights(Program program) {
@@ -81,7 +83,7 @@ public class Circus {
       } else {
 	p = programs.get(name);
       }
-      if (p.weight == -1) {
+      if (p.weight == 0) {
 	p.weight = weight;
       }
       scan.next(); // for "(weight)"
@@ -112,19 +114,19 @@ public class Circus {
     public Program(String name) {
       this.name = name;
       children = new ArrayList<>();
-      weight = -1;
+      weight = 0;
       cumWeight = 0;
     }
 
     public Program(String name, int weight) {
       this.name = name;
       this.weight = weight;
-      cumWeight = 0;
+      cumWeight = weight;
       children = new ArrayList<>();
     }
 
-    public String toString() {
-      return name;
+    public String toString() {      
+      return name + " (" + cumWeight + ")";
     }
   }
 }

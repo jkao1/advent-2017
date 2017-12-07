@@ -3,8 +3,11 @@ import java.util.*;
 public class Memory {
   public static int redistribute(ArrayList<Integer> bank) {
     Hashtable hashtable = new Hashtable();
+    int iteration = 0;
     while (!hashtable.containsKey(bank.toString())) {
-      hashtable.put(bank.toString(), "placeholder");
+      hashtable.put(bank.toString(), iteration);
+      iteration++;
+      
       int maxIndex = getMaxIndex(bank);
 
       int toRedistribute = bank.get(maxIndex);
@@ -26,7 +29,7 @@ public class Memory {
 	}
       }
     }
-    return hashtable.size();
+    return iteration - (int) (hashtable.get(bank.toString()));
   }
 
   private static int getMaxIndex(ArrayList<Integer> array) {

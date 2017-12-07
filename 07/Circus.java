@@ -8,7 +8,7 @@ public class Circus {
 
   public Circus(ArrayList<String> singlePrograms, ArrayList<String> linkedPrograms) {
     programs = new Hashtable();
-    PROGRAM_NAME_PATTERN = Pattern.compile("\w{3,}");
+    PROGRAM_NAME_PATTERN = Pattern.compile("\\w{3,}");
     
     hashSinglePrograms(singlePrograms);
     hashLinkedPrograms(linkedPrograms);

@@ -16,11 +16,18 @@ public class Circus {
 
   public int balanceWeights() {
     Program head = programs.get(findBottomProgram());
-    calculateWeight(head);
+    
   }
 
-  private void calculateWeight(Program p) {
-    
+  private int accumulateWeights(Program program) {
+    if (program.children.size() == 0) {
+      return program.weight;
+    }
+    int cumWeights = 0;
+    for (Program p : program.children) {
+      cumWeights += accumulateWeights(p);
+    }
+    return cumWeights + program.weight;
   }
   
   public String findBottomProgram() {
@@ -88,31 +95,34 @@ public class Circus {
 	}
 	Program child = (Program) (programs.get(cName));
 	child.parent = p;
+	p.children.add(child);
       }
     }
   }
 
   private class Program {
     public Program parent;
+    public ArrayList<Program> children;
     public String name;
     public int weight;
+    public int cumWeight;
 
     public Program(String name) {
       this.name = name;
+      children = new ArrayList<>();
       weight = -1;
+      cumWeight = 0;
     }
 
-    public Program(String name, int weight) {      
+    public Program(String name, int weight) {
       this.name = name;
       this.weight = weight;
+      cumWeight = 0;
+      children = new ArrayList<>();
     }
 
     public String toString() {
-      if (parent != null) {
-	return name + " (parent: " + parent.name + ")";
-      } else {
-	return name;
-      }
+      return name;
     }
   }
 }

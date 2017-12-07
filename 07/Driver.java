@@ -15,7 +15,7 @@ public class Driver {
       }
     }
     Circus c = new Circus(singlePrograms, linkedPrograms);
-    System.out.println(c.findBottomProgram());
+    System.out.println(c.balanceWeights());
   }
 }
   

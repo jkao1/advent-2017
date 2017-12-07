@@ -16,18 +16,20 @@ public class Circus {
 
   public int balanceWeights() {
     Program head = programs.get(findBottomProgram());
-    
+    accumulateWeights(program);
   }
 
   private int accumulateWeights(Program program) {
     if (program.children.size() == 0) {
+      program.cumWeight = program.weight;
       return program.weight;
     }
     int cumWeights = 0;
     for (Program p : program.children) {
       cumWeights += accumulateWeights(p);
     }
-    return cumWeights + program.weight;
+    program.cumWeight = cumWeights + program.weight;
+    return program.cumWeight;
   }
   
   public String findBottomProgram() {

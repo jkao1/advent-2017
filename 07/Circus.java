@@ -17,8 +17,52 @@ public class Circus {
   public int balanceWeights() {
     Program head = programs.get(findBottomProgram());
     accumulateWeights(head);
-    System.out.println(programs);
+    return findUnbalance(head);
+  }
+
+  private int findImbalance(Program program) {
+    int imbalance = findForeignWeight(program.children);
     return 0;
+  }
+
+  public int findForeignWeight(ArrayList<Integer> array) {
+    double average = sumWeights(array) * 1.0 / array.size();
+    int assumedCommon = array.get(0);
+    double assumedDist = Math.abs(average - assumedCommon);
+    for (int i = 1; i < array.size(); i++) {
+      if (array.get(i) != assumedCommon) {
+	if (assumedDist < Math.abs(average - array.get(i))) {
+	  return array.get(i);
+	}
+      }	
+    }
+    return -1;
+  }
+
+  private int sumWeights(ArrayList<Program> array) {
+    int sum = 0;
+    for (Program p : array) {
+      sum += p.weight;
+    }
+    return sum;
+  }
+
+  private int findUnbalance(Program program, int supposedWeight) {
+    if (program.children.size() == 0) {
+      return 0;
+    } else if (program.children.size() == 1) {
+      return findUnbalance(program.children.get(0));
+    }
+    if (program.sumWeights() != program.children.get(0) * program.children.size()) {
+      if (program.children.size() == 2) {
+	
+      }
+      int imbalance = program.children.get(0);
+      if
+    }
+    for (Program c : program.children) {
+      return findUnbalance(c);
+    }
   }
 
   private int accumulateWeights(Program program) {
@@ -123,6 +167,14 @@ public class Circus {
       this.weight = weight;
       cumWeight = weight;
       children = new ArrayList<>();
+    }
+
+    public int sumWeights() {
+      int sum = 0;
+      for (Program p : children) {
+	sum += p.weight;
+      }
+      return sum;
     }
 
     public String toString() {      

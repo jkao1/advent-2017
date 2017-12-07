@@ -18,4 +18,3 @@ public class Driver {
     System.out.println(c.balanceWeights());
   }
 }
-  

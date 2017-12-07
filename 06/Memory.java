@@ -9,14 +9,20 @@ public class Memory {
       int maxIndex = getMaxIndex(bank);
 
       int toRedistribute = bank.get(maxIndex);
-      int chunk = toRedistribute / (bank.size() - 1);
-      int leftover = toRedistribute % (bank.size() - 1);
+      int chunk = toRedistribute / bank.size();
+      int leftover = toRedistribute % bank.size();
+      int onesToGive = leftover;
       System.out.println("redistributing max of " + bank.get(maxIndex) + " to chunks of " + chunk + " and leftover of " + leftover);
-	
+      bank.set(maxIndex, 0);
       for (int i = 0; i < bank.size(); i++) {
 	if (i > maxIndex && i <= maxIndex + leftover ||
 	    maxIndex + leftover > bank.size() && i <= (maxIndex + leftover) % bank.size()) {
-	  bank.set(i, bank.get(i) + leftover + chunk);
+	  if (onesToGive > 0) {
+	    bank.set(i, bank.get(i) + 1 + chunk);
+	    onesToGive--;
+	  } else {
+	    bank.set(i, bank.get(i) + leftover + chunk);
+	  }
 	} else {
 	  bank.set(i, bank.get(i) + chunk);
 	}

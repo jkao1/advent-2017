@@ -14,18 +14,11 @@ public class Memory {
       System.out.println("redistributing max of " + bank.get(maxIndex) + " to chunks of " + chunk + " and leftover of " + leftover);
 	
       for (int i = 0; i < bank.size(); i++) {
-	if (chunk == 0) {
-	  if (i == maxIndex) {
-	    bank.set(i, 0);
-	  } else if (i > maxIndex && i <= maxIndex + leftover|| i < maxIndex && maxIndex + leftover > bank.size() && i <= (maxIndex + leftover) % bank.size()) {
-	    bank.set(i, bank.get(i) + 1);
-	  }
+	if (i > maxIndex && i <= maxIndex + leftover ||
+	    maxIndex + leftover > bank.size() && i <= (maxIndex + leftover) % bank.size()) {
+	  bank.set(i, bank.get(i) + leftover + chunk);
 	} else {
-	  if (i == maxIndex) {
-	    bank.set(i, leftover);
-	  } else {
-	    bank.set(i, bank.get(i) + chunk);
-	  }
+	  bank.set(i, bank.get(i) + chunk);
 	}
       }
     }

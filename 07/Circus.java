@@ -3,26 +3,24 @@ import java.util.regex.Pattern;
 import java.io.*;
 
 public class Circus {
-  public final Pattern PROGRAM_NAME_PATTERN, PROGRAM_WEIGHT_PATTERN;
-  private Hashtable programs;
+  public final Pattern PROGRAM_NAME_PATTERN;
+  private Hashtable<String, Program> programs;
 
   public Circus(ArrayList<String> singlePrograms, ArrayList<String> linkedPrograms) {
-    programs = new Hashtable();
-    PROGRAM_NAME_PATTERN = Pattern.compile("\\w{3,}");
-    PROGRAM_WEIGHT_PATTERN = Pattern.compile("\\d{1,}");
-    
+    programs = new Hashtable<>();
+    PROGRAM_NAME_PATTERN = Pattern.compile("\\w{3,}");    
+
     hashSinglePrograms(singlePrograms);
     hashLinkedPrograms(linkedPrograms);
   }
   
   public String findBottomProgram() {
-    for (Object program : programs.values()) {
-      Program p = (Program) program;
-      if (p.children.size() == 0) {
-	return p.name;
-      }
+    Program traverser = programs.values().iterator().next();
+    System.out.println(programs);
+    while (traverser.parent != null) {			  
+      traverser = traverser.parent;
     }
-    return "";
+    return traverser.name;
   }
 
   private void hashSinglePrograms(ArrayList<String> singlePrograms) {    
@@ -55,28 +53,48 @@ public class Circus {
 	
   private void hashLinkedPrograms(ArrayList<String> linkedPrograms) {
     // format of program string: ozfsktz (56) -> xzwjii, uhxjy
+    ArrayList<String> middlemen = new ArrayList<>();
     for (String program : linkedPrograms) {
       Scanner scan = new Scanner(program);
       String name = scan.next();
-      int weight = Integer.parseInt(scan.findInLine(PROGRAM_WEIGHT_PATTERN));
-      Program p = new Program(name, weight);
-      while (scan.hasNext(PROGRAM_NAME_PATTERN)) {
-	Program child = (Program) (programs.get(scan.next(PROGRAM_NAME_PATTERN)));
-	p.children.add(child);
+      Program p = programs.get(name);
+      scan.next(); // for weight
+      scan.next(); // for ->
+      while (scan.hasNext()) {
+	String cName = scan.next();
+	if (cName.contains(",")) {
+	  cName = cName.substring(0, cName.length() - 1);
+	}
+	if (programs.containsKey(cName)) {
+	  Program child = (Program) (programs.get(cName));
+	  child.parent = p;
+	} else {
+	  System.out.println(cName);
+	  middlemen.add(cName);
+	}
       }
-      programs.put(name, p);
+    }
+    while (middlemen.size() > 0) {
+      
     }
   }
 
   private class Program {
-    public ArrayList<Program> children;
+    public Program parent;
     public String name;
     public int weight;
 
-    public Program(String name, int weight) {
-      children = new ArrayList<>();
+    public Program(String name, int weight) {      
       this.name = name;
       this.weight = weight;
+    }
+
+    public String toString() {
+      if (parent != null) {
+	return name + " (parent: " + parent.name + ")";
+      } else {
+	return name;
+      }
     }
   }
 }

@@ -13,6 +13,15 @@ public class Circus {
     hashSinglePrograms(singlePrograms);
     hashLinkedPrograms(linkedPrograms);
   }
+
+  public int balanceWeights() {
+    Program head = programs.get(findBottomProgram());
+    calculateWeight(head);
+  }
+
+  private void calculateWeight(Program p) {
+    
+  }
   
   public String findBottomProgram() {
     Program traverser = programs.values().iterator().next();
@@ -67,7 +76,7 @@ public class Circus {
 	p.weight = weight;
       }
       scan.next(); // for "(weight)"
-      scan.next(); // for "->"
+      scan.next(); // for "->"      
       while (scan.hasNext()) {
 	String cName = scan.next();
 	if (cName.contains(",")) {

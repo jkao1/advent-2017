@@ -52,50 +52,53 @@ public class Circus {
   }
 	
   private void hashLinkedPrograms(ArrayList<String> linkedPrograms) {
-    if (linkedPrograms.size() == 0) {
-      return;
-    }
     // format of program string: ozfsktz (56) -> xzwjii, uhxjy
-    ArrayList<String> middlemen = new ArrayList<>();
     for (String program : linkedPrograms) {
       Scanner scan = new Scanner(program);
       String name = scan.next();
       Program p = programs.get(name);
-      scan.next(); // for weight
-      scan.next(); // for ->
+      if (p.weight == -1) {
+	p.weight = getWeight(program);
+      }
+      scan.next(); // for "(weight)"
+      scan.next(); // for "->"
       while (scan.hasNext()) {
 	String cName = scan.next();
 	if (cName.contains(",")) {
 	  cName = cName.substring(0, cName.length() - 1);
 	}
-	if (programs.containsKey(cName)) {
-	  Program child = (Program) (programs.get(cName));
-	  child.parent = p;
-	} else {
-	  System.out.println(cName);
-	  middlemen.add(program);
+	if (!programs.containsKey(cName)) {
+	  Program p = new Program(cName);
+	  programs.put(p.name, p);
 	}
-      }
-    }
-    hashLinkedPrograms(middlemen);
-  }
-
-  private class Program {
-    public Program parent;
-    public String name;
-    public int weight;
-
-    public Program(String name, int weight) {      
-      this.name = name;
-      this.weight = weight;
-    }
-
-    public String toString() {
-      if (parent != null) {
-	return name + " (parent: " + parent.name + ")";
-      } else {
-	return name;
+	Program child = (Program) (programs.get(cName));
+	child.parent = p;
       }
     }
   }
+}
+
+private class Program {
+  public Program parent;
+  public String name;
+  public int weight;
+
+  public Program(String name) {
+    this.name = name;
+    weight = -1;
+  }
+
+  public Program(String name, int weight) {      
+    this.name = name;
+    this.weight = weight;
+  }
+
+  public String toString() {
+    if (parent != null) {
+      return name + " (parent: " + parent.name + ")";
+    } else {
+      return name;
+    }
+  }
+}
 }

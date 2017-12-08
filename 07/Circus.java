@@ -17,11 +17,12 @@ public class Circus {
   public int balanceWeights() {
     Program head = programs.get(findBottomProgram());
     accumulateWeights(head);
-    return balanceWeights(head);
+    return balanceWeights(head, findCommonWeight();
   }
 
   private int balanceWeights(Program program, int supposedWeight) {
     if (program.sumWeights() != program.children.get(0) * program.children.size()) {
+      // there is an imbalance im children
       return supposedWeight - findImbalance(program);
     }
     return balanceWeights(

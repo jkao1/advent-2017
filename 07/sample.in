@@ -1,6 +1,7 @@
 abcde (1)
-fghij (2)
+fghij (3)
 abcde (1) -> fghij, klmno, qrstu
-klmno (5)
-qrstu (1) -> uwxyz
-uwxyz (4)
+klmno (3)
+qrstu (1) -> uwxyz, hihi
+uwxyz (0)
+hihi (2)

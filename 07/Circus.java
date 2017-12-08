@@ -5,6 +5,7 @@ import java.io.*;
 public class Circus {
   public final Pattern PROGRAM_NAME_PATTERN;
   private Hashtable<String, Program> programs;
+  private Program problematicParent;
 
   public Circus(ArrayList<String> singlePrograms, ArrayList<String> linkedPrograms) {
     programs = new Hashtable<>();
@@ -12,58 +13,60 @@ public class Circus {
 
     hashSinglePrograms(singlePrograms);
     hashLinkedPrograms(linkedPrograms);
+    accumulateWeights(programs.get(findBottomProgram()));
   }
 
-  public int balanceWeights() {
+  public int findImbalance() {
     Program head = programs.get(findBottomProgram());
-    accumulateWeights(head);
-    return balanceWeights(head, findCommonWeight();
-  }
-
-  private int balanceWeights(Program program, int supposedWeight) {
-    if (program.sumWeights() != program.children.get(0) * program.children.size()) {
-      // there is an imbalance im children
-      return supposedWeight - findImbalance(program);
+    if (!findProblematicParent(head)) {
+      return -1;
     }
-    return balanceWeights(
-      
-    
-    return findImbalance(head);
-  }
-
-  private int findImbalance(Program program) {
-    int imbalance = findForeignWeight(programsToWeights(program.children));
-    return 0;
-  }
-
-  private ArrayList<Integer> programsToWeights(ArrayList<Program> array) {
-    ArrayList<Integer> weights = new ArrayList<>();
-    for (Program p : array) {
-      weights.add(p.weight);
+    int commonWeight = findCommonChildWeight(problematicParent);
+    for (Program child : problematicParent.children) {
+      if (child.cumWeight != commonWeight) {
+	int imbalance = commonWeight - child.cumWeight;
+	System.out.println(problematicParent);
+	System.out.println(problematicParent.children);
+	System.out.println(commonWeight + ", " + child.cumWeight);
+	System.out.println(child.weight);
+	return child.weight + imbalance;
+      }
     }
-    return weights;
+    return -1;
   }
 
-  public int findForeignWeight(ArrayList<Integer> array) {
-    double average = sum(array) * 1.0 / array.size();
-    int assumedCommon = array.get(0);
+  private int findCommonChildWeight(Program parent) {
+    double average = parent.meanChildren();
+    int assumedCommon = parent.children.get(0).cumWeight;
     double assumedDist = Math.abs(average - assumedCommon);
-    for (int i = 1; i < array.size(); i++) {
-      if (array.get(i) != assumedCommon) {
-	if (assumedDist < Math.abs(average - array.get(i))) {
-	  return array.get(i);
+    
+    for (int i = 1; i < parent.children.size(); i++) {
+      if (parent.children.get(i).cumWeight != assumedCommon) {
+	if (assumedDist < Math.abs(average - parent.children.get(i).cumWeight)) {
+	  return assumedCommon;
+	} else {
+	  return parent.children.get(i).cumWeight;
 	}
       }	
     }
     return -1;
   }
 
-  private int sum(ArrayList<Integer> array) {
-    int sum = 0;
-    for (int i : array) {
-      sum += i;
+  private boolean findProblematicParent(Program p) {
+    if (p.isLeaf()) {
+      return false;
     }
-    return sum;
+    if (p.hasUnevenChildren()) {
+      problematicParent = p;
+      return true;
+    }
+
+    for (Program child : p.children) {
+      if (findProblematicParent(child)) {
+	return true;
+      }
+    }
+    return false;
   }
 
   private int accumulateWeights(Program program) {
@@ -178,8 +181,28 @@ public class Circus {
       return sum;
     }
 
+    public boolean isLeaf() {
+      return children.size() == 0;
+    }
+
+    public int sumChildren() {
+      int sum = 0;
+      for (Program child : children) {
+	sum += child.cumWeight;
+      }
+      return sum;
+    }
+
+    public double meanChildren() {
+      return sumChildren() * 1.0 / children.size();
+    }
+
+    public boolean hasUnevenChildren() {
+      return sumChildren() != (children.get(0).cumWeight * children.size());
+    }
+
     public String toString() {      
-      return name + " (" + cumWeight + ")";
+      return name + " (" + cumWeight + ") ";
     }
   }
 }

@@ -15,10 +15,6 @@ public class Driver {
       }
     }
     Circus c = new Circus(singlePrograms, linkedPrograms);
-    ArrayList<Integer> ary = new ArrayList<>();
-    for (int i : new int[] {1,1,1,1,1,1,1,1}) {
-      ary.add(i);
-    }
-    System.out.println(c.findForeignWeight(ary));
+    System.out.println(c.findImbalance());
   }
 }

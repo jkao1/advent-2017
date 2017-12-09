@@ -4,6 +4,7 @@ public class Register {
   public static int findLargestRegister(ArrayList<String> instructions)
   {
     Map<String, Integer> map = new HashMap<>();
+    int maxValue = Integer.MIN_VALUE;
 
     for (String instruction : instructions) {
       // instruction format: b inc 5 if a > 1
@@ -24,11 +25,15 @@ public class Register {
       }
       if (evalCond(operator, condRName, condValue, map)) {
 	int vector = magnitude * (direction.equals("inc") ? 1 : -1);
-	map.put(rName, map.get(rName) + vector);
+	int newValue = map.get(rName) + vector;
+	if (newValue > maxValue) {
+	  maxValue = newValue;
+	}
+	map.put(rName, newValue);
       }
     }
 
-    return findLargestValue(map);
+    return maxValue;
   }
 
   private static boolean evalCond(String operator, String condRName, int condValue, Map map) {

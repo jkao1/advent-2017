@@ -29,7 +29,6 @@ public class Register {
     }
 
     return findLargest(map);
-
   }
 
   private static boolean evalCond(String operator, String condRName, int condValue, Map map) {
@@ -48,6 +47,12 @@ public class Register {
   private static String findLargest(Map<String, Integer> map) {
     String maxKey = "";
     int maxValue = Integer.MIN_VALUE;
-    for (Map.Entry<String, Integer> entry : map)
+    for (Map.Entry<String, Integer> entry : map.entrySet()) {
+      if (entry.getValue() > maxValue) {
+	maxKey = entry.getKey();
+	maxValue = entry.getValue();
+      }
+    }
+    return maxKey;
   }
 }

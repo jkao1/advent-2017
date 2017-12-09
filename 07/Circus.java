@@ -9,7 +9,7 @@ public class Circus {
 
   public Circus(ArrayList<String> singlePrograms, ArrayList<String> linkedPrograms) {
     programs = new Hashtable<>();
-    PROGRAM_NAME_PATTERN = Pattern.compile("\\w{3,}");    
+    PROGRAM_NAME_PATTERN = Pattern.compile("\\w{3,}");
 
     hashSinglePrograms(singlePrograms);
     hashLinkedPrograms(linkedPrograms);
@@ -18,18 +18,22 @@ public class Circus {
 
   public int findImbalance() {
     Program head = programs.get(findBottomProgram());
+    return findImbalance(head, false, -1);
+  }
+
+  public int findImbalance(Program head, boolean onTrail, int difference) {
     if (!findProblematicParent(head)) {
-      return -1;
+      if (onTrail) {
+	return head.weight + difference;
+      } else {
+	return -1;
+      }
     }
     int commonWeight = findCommonChildWeight(problematicParent);
     for (Program child : problematicParent.children) {
       if (child.cumWeight != commonWeight) {
 	int imbalance = commonWeight - child.cumWeight;
-	System.out.println(problematicParent);
-	System.out.println(problematicParent.children);
-	System.out.println(commonWeight + ", " + child.cumWeight);
-	System.out.println(child.weight);
-	return child.weight + imbalance;
+	return findImbalance(child, true, imbalance);
       }
     }
     return -1;
@@ -39,7 +43,6 @@ public class Circus {
     double average = parent.meanChildren();
     int assumedCommon = parent.children.get(0).cumWeight;
     double assumedDist = Math.abs(average - assumedCommon);
-    
     for (int i = 1; i < parent.children.size(); i++) {
       if (parent.children.get(i).cumWeight != assumedCommon) {
 	if (assumedDist < Math.abs(average - parent.children.get(i).cumWeight)) {
@@ -47,7 +50,7 @@ public class Circus {
 	} else {
 	  return parent.children.get(i).cumWeight;
 	}
-      }	
+      }
     }
     return -1;
   }
@@ -81,16 +84,16 @@ public class Circus {
     program.cumWeight = cumWeights + program.weight;
     return program.cumWeight;
   }
-  
+
   public String findBottomProgram() {
     Program traverser = programs.values().iterator().next();
-    while (traverser.parent != null) {			  
+    while (traverser.parent != null) {
       traverser = traverser.parent;
     }
     return traverser.name;
   }
 
-  private void hashSinglePrograms(ArrayList<String> singlePrograms) {    
+  private void hashSinglePrograms(ArrayList<String> singlePrograms) {
     // format of program string: yvpwz (50)
     for (String program : singlePrograms) {
       Scanner scan = new Scanner(program);
@@ -117,7 +120,7 @@ public class Circus {
     }
     return Integer.parseInt(weight);
   }
-	
+
   private void hashLinkedPrograms(ArrayList<String> linkedPrograms) {
     // format of program string: ozfsktz (56) -> xzwjii, uhxjy
     for (String program : linkedPrograms) {
@@ -135,7 +138,7 @@ public class Circus {
 	p.weight = weight;
       }
       scan.next(); // for "(weight)"
-      scan.next(); // for "->"      
+      scan.next(); // for "->"
       while (scan.hasNext()) {
 	String cName = scan.next();
 	if (cName.contains(",")) {
@@ -201,7 +204,7 @@ public class Circus {
       return sumChildren() != (children.get(0).cumWeight * children.size());
     }
 
-    public String toString() {      
+    public String toString() {
       return name + " (" + cumWeight + ") ";
     }
   }

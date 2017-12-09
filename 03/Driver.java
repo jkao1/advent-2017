@@ -2,10 +2,10 @@ import java.io.*;
 import java.util.*;
 
 public class Driver {
-		public static void main(String[] args) {
-				Scanner in = new Scanner(new BufferedReader(new InputStreamReader(System.in)));
-				while (in.hasNextInt()) {
-						System.out.println(Spiral.findLeastAfter(in.nextInt(), 1000));
-				}
-		}				
+  public static void main(String[] args) {
+    Scanner in = new Scanner(new BufferedReader(new InputStreamReader(System.in)));
+    while (in.hasNextInt()) {
+      System.out.println(Spiral.findLeastAfter(in.nextInt(), 1000));
+    }
+  }
 }

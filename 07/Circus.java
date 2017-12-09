@@ -1,6 +1,6 @@
+import java.io.*;
 import java.util.*;
 import java.util.regex.Pattern;
-import java.io.*;
 
 public class Circus {
   public final Pattern PROGRAM_NAME_PATTERN;
@@ -24,16 +24,16 @@ public class Circus {
   public int findImbalance(Program head, boolean onTrail, int difference) {
     if (!findProblematicParent(head)) {
       if (onTrail) {
-	return head.weight + difference;
+        return head.weight + difference;
       } else {
-	return -1;
+        return -1;
       }
     }
     int commonWeight = findCommonChildWeight(problematicParent);
     for (Program child : problematicParent.children) {
       if (child.cumWeight != commonWeight) {
-	int imbalance = commonWeight - child.cumWeight;
-	return findImbalance(child, true, imbalance);
+        int imbalance = commonWeight - child.cumWeight;
+        return findImbalance(child, true, imbalance);
       }
     }
     return -1;
@@ -45,11 +45,11 @@ public class Circus {
     double assumedDist = Math.abs(average - assumedCommon);
     for (int i = 1; i < parent.children.size(); i++) {
       if (parent.children.get(i).cumWeight != assumedCommon) {
-	if (assumedDist < Math.abs(average - parent.children.get(i).cumWeight)) {
-	  return assumedCommon;
-	} else {
-	  return parent.children.get(i).cumWeight;
-	}
+        if (assumedDist < Math.abs(average - parent.children.get(i).cumWeight)) {
+          return assumedCommon;
+        } else {
+          return parent.children.get(i).cumWeight;
+        }
       }
     }
     return -1;
@@ -66,7 +66,7 @@ public class Circus {
 
     for (Program child : p.children) {
       if (findProblematicParent(child)) {
-	return true;
+        return true;
       }
     }
     return false;
@@ -108,14 +108,14 @@ public class Circus {
     boolean scanningInt = false;
     for (int i = 0; i < program.length(); i++) {
       if (scanningInt) {
-	if (program.charAt(i) == ')') {
-	  break;
-	}
-	weight += program.charAt(i);
+        if (program.charAt(i) == ')') {
+          break;
+        }
+        weight += program.charAt(i);
       } else {
-	if (program.charAt(i) == '(') {
-	  scanningInt = true;
-	}
+        if (program.charAt(i) == '(') {
+          scanningInt = true;
+        }
       }
     }
     return Integer.parseInt(weight);
@@ -129,28 +129,28 @@ public class Circus {
       int weight = getWeight(program);
       Program p;
       if (!programs.containsKey(name)) {
-	p = new Program(name, weight);
-	programs.put(name, p);
+        p = new Program(name, weight);
+        programs.put(name, p);
       } else {
-	p = programs.get(name);
+        p = programs.get(name);
       }
       if (p.weight == 0) {
-	p.weight = weight;
+        p.weight = weight;
       }
       scan.next(); // for "(weight)"
       scan.next(); // for "->"
       while (scan.hasNext()) {
-	String cName = scan.next();
-	if (cName.contains(",")) {
-	  cName = cName.substring(0, cName.length() - 1);
-	}
-	if (!programs.containsKey(cName)) {
-	  Program middleman = new Program(cName);
-	  programs.put(middleman.name, middleman);
-	}
-	Program child = (Program) (programs.get(cName));
-	child.parent = p;
-	p.children.add(child);
+        String cName = scan.next();
+        if (cName.contains(",")) {
+          cName = cName.substring(0, cName.length() - 1);
+        }
+        if (!programs.containsKey(cName)) {
+          Program middleman = new Program(cName);
+          programs.put(middleman.name, middleman);
+        }
+        Program child = (Program) (programs.get(cName));
+        child.parent = p;
+        p.children.add(child);
       }
     }
   }
@@ -179,7 +179,7 @@ public class Circus {
     public int sumWeights() {
       int sum = 0;
       for (Program p : children) {
-	sum += p.weight;
+        sum += p.weight;
       }
       return sum;
     }
@@ -191,7 +191,7 @@ public class Circus {
     public int sumChildren() {
       int sum = 0;
       for (Program child : children) {
-	sum += child.cumWeight;
+        sum += child.cumWeight;
       }
       return sum;
     }

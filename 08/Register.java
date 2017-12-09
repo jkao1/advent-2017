@@ -1,8 +1,7 @@
 import java.util.*;
 
 public class Register {
-  public static int findLargestRegister(ArrayList<String> instructions)
-  {
+  public static int findLargestRegister(ArrayList<String> instructions) {
     Map<String, Integer> map = new HashMap<>();
     int maxValue = Integer.MIN_VALUE;
 
@@ -18,18 +17,18 @@ public class Register {
       int condValue = scan.nextInt();
 
       if (!map.containsKey(rName)) {
-	map.put(rName, 0);
+        map.put(rName, 0);
       }
       if (!map.containsKey(condRName)) {
-	map.put(condRName, 0);
+        map.put(condRName, 0);
       }
       if (evalCond(operator, condRName, condValue, map)) {
-	int vector = magnitude * (direction.equals("inc") ? 1 : -1);
-	int newValue = map.get(rName) + vector;
-	if (newValue > maxValue) {
-	  maxValue = newValue;
-	}
-	map.put(rName, newValue);
+        int vector = magnitude * (direction.equals("inc") ? 1 : -1);
+        int newValue = map.get(rName) + vector;
+        if (newValue > maxValue) {
+          maxValue = newValue;
+        }
+        map.put(rName, newValue);
       }
     }
 
@@ -39,12 +38,18 @@ public class Register {
   private static boolean evalCond(String operator, String condRName, int condValue, Map map) {
     int rValue = (int) map.get(condRName);
     switch (operator) {
-    case "<": return rValue < condValue;
-    case ">": return rValue > condValue;
-    case ">=": return rValue >= condValue;
-    case "<=": return rValue <= condValue;
-    case "==": return rValue == condValue;
-    case "!=": return rValue != condValue;
+      case "<":
+        return rValue < condValue;
+      case ">":
+        return rValue > condValue;
+      case ">=":
+        return rValue >= condValue;
+      case "<=":
+        return rValue <= condValue;
+      case "==":
+        return rValue == condValue;
+      case "!=":
+        return rValue != condValue;
     }
     throw new IllegalArgumentException(operator + " is not a valid operator.");
   }
@@ -53,7 +58,7 @@ public class Register {
     int max = Integer.MIN_VALUE;
     for (Map.Entry<String, Integer> entry : map.entrySet()) {
       if (entry.getValue() > max) {
-	max = entry.getValue();
+        max = entry.getValue();
       }
     }
     return max;

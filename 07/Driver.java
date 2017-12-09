@@ -1,5 +1,5 @@
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
 public class Driver {
   public static void main(String[] args) {
@@ -9,9 +9,9 @@ public class Driver {
     while (in.hasNextLine()) {
       String line = in.nextLine();
       if (line.contains("->")) {
-	linkedPrograms.add(line);
+        linkedPrograms.add(line);
       } else {
-	singlePrograms.add(line);
+        singlePrograms.add(line);
       }
     }
     Circus c = new Circus(singlePrograms, linkedPrograms);

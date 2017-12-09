@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Register {
-  public static String findLargestRegister(ArrayList<String> instructions)
+  public static int findLargestRegister(ArrayList<String> instructions)
   {
     Map<String, Integer> map = new HashMap<>();
 
@@ -28,7 +28,7 @@ public class Register {
       }
     }
 
-    return findLargest(map);
+    return findLargestValue(map);
   }
 
   private static boolean evalCond(String operator, String condRName, int condValue, Map map) {
@@ -44,15 +44,13 @@ public class Register {
     throw new IllegalArgumentException(operator + " is not a valid operator.");
   }
 
-  private static String findLargest(Map<String, Integer> map) {
-    String maxKey = "";
-    int maxValue = Integer.MIN_VALUE;
+  private static int findLargestValue(Map<String, Integer> map) {
+    int max = Integer.MIN_VALUE;
     for (Map.Entry<String, Integer> entry : map.entrySet()) {
-      if (entry.getValue() > maxValue) {
-	maxKey = entry.getKey();
-	maxValue = entry.getValue();
+      if (entry.getValue() > max) {
+	max = entry.getValue();
       }
     }
-    return maxKey;
+    return max;
   }
 }

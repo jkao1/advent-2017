@@ -1,7 +1,7 @@
 import java.util.*;
 
-public class Memory {
-  public static int redistribute(ArrayList<Integer> bank) {
+public class Memory {  
+  public static int redistribute(ArrayList<Integer> bank) {    
     Hashtable hashtable = new Hashtable();
     int iteration = 0;
     while (!hashtable.containsKey(bank.toString())) {

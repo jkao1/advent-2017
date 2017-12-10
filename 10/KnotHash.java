@@ -15,20 +15,51 @@ public class KnotHash {
     return list.get(0) * list.get(1);
   }
 
-  public static sparseHash(ArrayList<Integer> lengths)
+  public static String toKnotHash(ArrayList<Integer> lengths) {
+    return toHexadecimal(denseHash(sparseHash(lengths)));
+  }
+
+  private static ArrayList<Integer> sparseHash(ArrayList<Integer> lengths)
   {
     ArrayList<Integer> list = generateList();
     int current, skip;
     current = skip = 0;
 
     for (int i = 0; i < 64; i++) {
-      System.out.println("round " + i + " of hashing.");
       for (int length : lengths) {
         reverseSublist(list, current, current + length);
         current = (current + length + skip) % list.size();
         skip++;
       }
     }
+
+    return list;
+  }
+
+  private static ArrayList<Integer> denseHash(ArrayList<Integer> list)
+  {
+    ArrayList<Integer> denseNumbers = new ArrayList<>();
+    for (int i = 0; i < list.size(); i += 16) {
+      int denseNum = list.get(i);
+      for (int j = i + 1; j < i + 16; j++) {
+        denseNum ^= list.get(j);
+      }
+      denseNumbers.add(denseNum);
+    }
+    return denseNumbers;
+  }
+
+  private static String toHexadecimal(ArrayList<Integer> list)
+  {
+    String output = "";
+    for (int x : list) {
+      String hexString = Integer.toHexString(x);
+      if (hexString.length() == 1) {
+        hexString = "0" + hexString;
+      }
+      output += hexString;
+    }
+    return output;
   }
 
   private static void reverseSublist(ArrayList list, int start, int end)

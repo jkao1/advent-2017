@@ -19,8 +19,7 @@ public class KnotHash {
     return toHexadecimal(denseHash(sparseHash(lengths)));
   }
 
-  private static ArrayList<Integer> sparseHash(ArrayList<Integer> lengths)
-  {
+  private static ArrayList<Integer> sparseHash(ArrayList<Integer> lengths) {
     ArrayList<Integer> list = generateList();
     int current, skip;
     current = skip = 0;
@@ -36,8 +35,7 @@ public class KnotHash {
     return list;
   }
 
-  private static ArrayList<Integer> denseHash(ArrayList<Integer> list)
-  {
+  private static ArrayList<Integer> denseHash(ArrayList<Integer> list) {
     ArrayList<Integer> denseNumbers = new ArrayList<>();
     for (int i = 0; i < list.size(); i += 16) {
       int denseNum = list.get(i);
@@ -49,8 +47,7 @@ public class KnotHash {
     return denseNumbers;
   }
 
-  private static String toHexadecimal(ArrayList<Integer> list)
-  {
+  private static String toHexadecimal(ArrayList<Integer> list) {
     String output = "";
     for (int x : list) {
       String hexString = Integer.toHexString(x);
@@ -62,8 +59,7 @@ public class KnotHash {
     return output;
   }
 
-  private static void reverseSublist(ArrayList list, int start, int end)
-  {
+  private static void reverseSublist(ArrayList list, int start, int end) {
     end--; // function reverses in the interval [start, end)
     while (start < end) {
       swap(list, start % list.size(), end % list.size());

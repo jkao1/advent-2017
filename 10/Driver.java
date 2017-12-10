@@ -8,6 +8,6 @@ public class Driver {
     for (String length : in.nextLine().split(",")) {
       lengths.add(Integer.parseInt(length));
     }
-    System.out.println(Knot.findProduct(lengths));
+    System.out.println(KnotHash.findProduct(lengths));
   }
 }

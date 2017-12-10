@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Knot {
+public class KnotHash {
   public static int findProduct(ArrayList<Integer> lengths) {
     ArrayList<Integer> list = generateList();
     int current, skip;
@@ -13,6 +13,22 @@ public class Knot {
     }
 
     return list.get(0) * list.get(1);
+  }
+
+  public static sparseHash(ArrayList<Integer> lengths)
+  {
+    ArrayList<Integer> list = generateList();
+    int current, skip;
+    current = skip = 0;
+
+    for (int i = 0; i < 64; i++) {
+      System.out.println("round " + i + " of hashing.");
+      for (int length : lengths) {
+        reverseSublist(list, current, current + length);
+        current = (current + length + skip) % list.size();
+        skip++;
+      }
+    }
   }
 
   private static void reverseSublist(ArrayList list, int start, int end)

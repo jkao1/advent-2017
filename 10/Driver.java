@@ -13,6 +13,6 @@ public class Driver {
     lengths.add(73);
     lengths.add(47);
     lengths.add(23);
-    System.out.println(lengths);
+    System.out.println(KnotHash.sparseHash(lenghts));
   }
 }

@@ -25,16 +25,4 @@ public class Plumber {
       markThrough(programs, pipes, Integer.parseInt(s));
     }
   }
-
-  private static void printlnBln(boolean[] ary) {
-    if (ary.length == 0) {
-      System.out.println("[]");
-      return;
-    }
-    String output = "[";
-    for (boolean b : ary) {
-      output += b + ", ";
-    }
-    System.out.println(output.substring(0, output.length() - 2) + "]");
-  }
 }

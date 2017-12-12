@@ -20,7 +20,7 @@ public class Plumber {
     }
     String origin = pipes.get(index);
     programs[index] = true;
-    String[] nums = origin.substring(origin.indexOf("<->") +  4).split(", ");
+    String[] nums = origin.substring(origin.indexOf("<->") + 4).split(", ");
     for (String s : nums) {
       markThrough(programs, pipes, Integer.parseInt(s));
     }
@@ -35,6 +35,6 @@ public class Plumber {
     for (boolean b : ary) {
       output += b + ", ";
     }
-    System.out.println(output.substring(0, output.length() -2) + "]");
+    System.out.println(output.substring(0, output.length() - 2) + "]");
   }
 }

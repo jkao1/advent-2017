@@ -38,10 +38,14 @@ public class Hex {
 
   private static int directionToValue(char s) {
     switch (s) {
-      case 'n': return 1;
-      case 'e': return 1;
-      case 'w': return -1;
-      case 's': return -1;
+      case 'n':
+        return 1;
+      case 'e':
+        return 1;
+      case 'w':
+        return -1;
+      case 's':
+        return -1;
     }
     return 0;
   }

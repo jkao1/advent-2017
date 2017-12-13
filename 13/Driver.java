@@ -1,5 +1,5 @@
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
 public class Driver {
   public static void main(String[] args) {
@@ -9,6 +9,7 @@ public class Driver {
       layers.add(in.nextLine());
     }
     String layer = layers.get(layers.size() - 1);
-    System.out.println(Packet.findDelay(layers, Integer.parseInt(layer.substring(0, layer.indexOf(":")))));
+    System.out.println(
+        Packet.findDelay(layers, Integer.parseInt(layer.substring(0, layer.indexOf(":")))));
   }
 }

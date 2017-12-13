@@ -4,7 +4,8 @@ public class Packet {
   public static int findDelay(ArrayList<String> layers, int numLayers) {
     int[] firewall = new int[numLayers + 1];
     for (String layer : layers) {
-      firewall[Integer.parseInt(layer.substring(0, layer.indexOf(":")))] = Integer.parseInt(layer.substring(layer.indexOf(":") + 2));
+      firewall[Integer.parseInt(layer.substring(0, layer.indexOf(":")))] =
+          Integer.parseInt(layer.substring(layer.indexOf(":") + 2));
     }
     int delay = 0;
     while (true) {

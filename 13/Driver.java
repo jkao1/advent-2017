@@ -4,9 +4,11 @@ import java.io.*;
 public class Driver {
   public static void main(String[] args) {
     Scanner in = new Scanner(new BufferedReader(new InputStreamReader(System.in)));
-    while (in.hasNext()) {
-      in.next();
+    ArrayList<String> layers = new ArrayList<>();
+    while (in.hasNextLine()) {
+      layers.add(in.nextLine());
     }
-    System.out.println();
+    String layer = layers.get(layers.size() - 1);
+    System.out.println(Packet.findSeverity(layers, Integer.parseInt(layer.substring(0, layer.indexOf(":")))));
   }
 }

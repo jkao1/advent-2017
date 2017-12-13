@@ -9,6 +9,6 @@ public class Driver {
       layers.add(in.nextLine());
     }
     String layer = layers.get(layers.size() - 1);
-    System.out.println(Packet.findSeverity(layers, Integer.parseInt(layer.substring(0, layer.indexOf(":")))));
+    System.out.println(Packet.findDelay(layers, Integer.parseInt(layer.substring(0, layer.indexOf(":")))));
   }
 }
